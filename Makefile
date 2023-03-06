@@ -8,6 +8,7 @@ setup:
 .PHONY: indil
 indil:
 	qmk compile ${MARGS} -kb splitkb/aurora/lily58/rev1 -km indil
+	qmk c2json indil/keymap.c -km indil -kb splitkb/aurora/lily58/rev1 --no-cpp  > export.json
 	sudo ./autoflash.sh
 
 lily58:

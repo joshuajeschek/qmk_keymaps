@@ -5,16 +5,20 @@ BOOT_LABEL="RPI-RP2"
 PWD=$(pwd)
 MOUNT_TO="$PWD/.mount"
 FWF=$(ls -t $PWD/.build/*.uf2 | head -1)
-i=1
-sp="/-\|"
 
 mount_indil() {
+  i=1
+  sp="/-\|"
   while true; do
+    if (( i > 100  )); then
+      echo -e "\r\e[Ktimed out."
+      exit
+    fi
     if [[ -n $(lsblk -ro LABEL | grep $BOOT_LABEL) ]]; then
       break
     fi
     printf "\b${sp:i++%${#sp}:1}";
-    sleep 0.25;
+    sleep 0.1;
   done
   echo -e "\r\e[K"
 
@@ -32,13 +36,15 @@ mount_indil() {
 }
 
 flash() {
+  i=1
+  sp="/-\|"
   cp $FWF $MOUNT_POINT
   while true; do
     if [[ -n $(lsusb | grep -i $VENDOR_ID:$PRODUCT_ID) ]]; then
       break
     fi
     printf "\b${sp:i++%${#sp}:1}";
-    sleep 0.25;
+    sleep 0.1;
   done
   echo -e "\r\e[K"
 }
