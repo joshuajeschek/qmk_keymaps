@@ -6,6 +6,14 @@ enum layers {
   _LOWER,
   _RAISE,
   _ADJUST,
+  _GAMING,
+};
+char layer_name_map[5][6] = {
+  "DEFAU\0",
+  "LOWER\0",
+  "RAISE\0",
+  "ADJST\0",
+  "GAMIN\0",
 };
 enum helpers {
   ___ = KC_TRNS,
@@ -20,44 +28,68 @@ enum custom_keycodes {
    BSLSH,
    LESS,
    GRTR,
-   EURO,
+   EUR,
    DLLR,
    PERC,
    TILD,
    ASTX,
    AT,
+   DYNENT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // LETTERS AND STUFF
 	[_DEFAULT] = LAYOUT(
-    KC_ESC,  KC_1, KC_2, KC_3,    KC_4,    KC_5,                    KC_6,  KC_7,    KC_8,    KC_9,   KC_0,    KC_GRV,
-    KC_TAB,  KC_Q, KC_W, KC_E,    KC_R,    KC_T,                    KC_Y,  KC_U,    KC_I,    KC_O,   KC_P,    KC_MINS,
-    KC_LSFT, KC_A, KC_S, KC_D,    KC_F,    KC_G,                    KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_RSFT,
-    KC_LCTL, KC_Z, KC_X, KC_C,    KC_V,    KC_B,  KC_LBRC, KC_MPLY, KC_N,  KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_RALT,
-                         KC_LALT, KC_LGUI, MO(1), KC_SPC,  KC_ENT,  MO(2), KC_BSPC, KC_RGUI),
+    KC_ESC,  KC_1, KC_2, KC_3,    KC_4,    KC_5,                         KC_6,       KC_7,    KC_8,    KC_9,   KC_0,    KC_GRV,
+    KC_TAB,  KC_Q, KC_W, KC_E,    KC_R,    KC_T,                         KC_Y,       KC_U,    KC_I,    KC_O,   KC_P,    KC_MINS,
+    KC_LSFT, KC_A, KC_S, KC_D,    KC_F,    KC_G,                         KC_H,       KC_J,    KC_K,    KC_L,   KC_SCLN, KC_RSFT,
+    KC_LCTL, KC_Z, KC_X, KC_C,    KC_V,    KC_B,       KC_LBRC, KC_MPLY, KC_N,       KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_RALT,
+                         KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC,  DYNENT,  MO(_RAISE), KC_BSPC, KC_RGUI),
   // SYMBOLS
 	[_LOWER] = LAYOUT(
-    ___,     KC_F1,   KC_F2,   KC_F3, KC_F4,   KC_F5,                KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-    ___,     AT,      KC_NUHS, EURO,  KC_AT,   LBRCK,                RBRCK,   GRTR,    KC_AMPR, KC_UNDS, KC_GRV,  KC_F12,
-    KC_GRV,  KC_CIRC, KC_GRV,  DLLR,  KC_PIPE, KC_ASTR,              KC_LPRN, KC_PEQL, BSLSH,   KC_EXLM, KC_RCBR, KC_TILD,
-    ___,     _x_,     _x_,     PERC,  KC_PLUS, LCURL,   ___, ___,    RCURL,   LESS,    PIPE,    KC_PPLS, TILD,    KC_PIPE,
-                               ___,   ___,     ___,     ___, ___,    MO(3),   KC_DEL,  ___),
+    ___,     KC_F1,   KC_F2,   KC_F3, KC_F4,   KC_F5,                KC_F6,         KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+    ___,     AT,      KC_NUHS, EUR,  KC_AT,   LBRCK,                RBRCK,         GRTR,    KC_AMPR, KC_UNDS, KC_GRV,  KC_F12,
+    KC_GRV,  KC_CIRC, KC_GRV,  DLLR,  KC_PIPE, KC_ASTR,              KC_LPRN,       KC_PEQL, BSLSH,   KC_EXLM, KC_RCBR, KC_TILD,
+    ___,     _x_,     _x_,     PERC,  KC_PLUS, LCURL,   ___, ___,    RCURL,         LESS,    PIPE,    KC_PPLS, TILD,    KC_PIPE,
+                               ___,   ___,     ___,     ___, ___,    MO(_ADJUST),   KC_DEL,  ___),
   // NAVIGATION
 	[_RAISE] = LAYOUT(
-    ___,    ___,   ___,   ___,    ___,    ___,              ___,     ___,     ___,    ___,     ___,     ___,
-    KC_GRV, KC_1,  KC_2,  KC_3,   KC_4,   KC_5,             KC_PSCR, KC_7,    KC_8,   KC_9,    KC_0,    ___,
-    KC_F1,  KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,            KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, _x_,     _x_,
-    KC_F7,  KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, ___, ___, KC_PLUS, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
-                          ___,    ___,    MO(3),  ___, ___, ___,     ___,     ___),
+    ___,    ___,   ___,   ___,    ___,    ___,                    ___,     ___,     ___,    ___,     ___,     ___,
+    KC_GRV, KC_1,  KC_2,  KC_3,   KC_4,   KC_5,                   KC_PSCR, KC_7,    KC_8,   KC_9,    KC_0,    ___,
+    KC_F1,  KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,                  KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, _x_,     _x_,
+    KC_F7,  KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,       ___, ___, KC_PLUS, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
+                          ___,    ___,    MO(_ADJUST),  ___, ___, ___,     ___,     ___),
   // KEYBOARD SPECIFIC STUFF I GUESS
 	[_ADJUST] = LAYOUT(
-    _x_, _x_, _x_, _x_, _x_, _x_,           _x_, _x_, _x_,     _x_,     _x_,     _x_,
-    _x_, _x_, _x_, _x_, _x_, _x_,           _x_, _x_, _x_,     _x_,     _x_,     _x_,
-    _x_, _x_, _x_, _x_, _x_, _x_,           _x_, _x_, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
-    _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
-                   ___, ___, ___, ___, ___, ___, ___, ___)
+    _x_, _x_, _x_, _x_, _x_, _x_,                   _x_, _x_, _x_,     _x_,     _x_,     _x_,
+    _x_, _x_, _x_, _x_, _x_, _x_,                   _x_, _x_, _x_,     _x_,     _x_,     _x_,
+    _x_, _x_, _x_, _x_, _x_, TG(_GAMING),           _x_, _x_, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
+    _x_, _x_, _x_, _x_, _x_, _x_,         _x_, _x_, _x_, _x_, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
+                   ___, ___, ___,         ___, ___, ___, ___, ___),
+  [_GAMING] = LAYOUT(
+    KC_ESC, KC_1,    KC_2, KC_3,    KC_4,          KC_5,                    KC_6,  KC_7,    KC_8,    KC_9,   KC_0,    KC_F18,
+    KC_F13, KC_TAB,  KC_Q, KC_W,    KC_E,          KC_R,                    KC_T,  KC_Y,    KC_U,    KC_I,   KC_O,    KC_F19,
+    KC_F14, KC_LSFT, KC_A, KC_S,    KC_D,          KC_F,                    KC_G,  KC_H,    KC_J,    KC_K,   KC_L,    KC_F20,
+    KC_F15, KC_LCTL, KC_Z, KC_X,    KC_C,          KC_V,    KC_F16, KC_F17, KC_B,  KC_N,    KC_COMM, KC_DOT, KC_SLSH, KC_F21,
+                           KC_LGUI, LALT(KC_TAB),  KC_TAB,  KC_SPC, DYNENT, TG(_GAMING), KC_BSPC, KC_RGUI),
 };
+
+int dyn_ent_return_to = _DEFAULT;
+void dyn_ent(void) {
+  tap_code(KC_ENT);
+  switch (get_highest_layer(layer_state)) {
+    case _DEFAULT:
+      layer_move(dyn_ent_return_to);
+      dyn_ent_return_to = _DEFAULT;
+      break;
+    case _GAMING:
+      layer_move(_DEFAULT);
+      dyn_ent_return_to = _GAMING;
+      break;
+    default:
+      break;
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -93,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed)
       SEND_STRING(">");
     break;
-  case EURO:
+  case EUR:
     if (record->event.pressed)
       SEND_STRING("€");
     break;
@@ -117,6 +149,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed)
       SEND_STRING("@");
     break;
+  case DYNENT:
+    if (record->event.pressed)
+      dyn_ent();
+    break;
   }
   return true;
 };
@@ -128,10 +164,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_LOWER] =  { ENCODER_CCW_CW(___, ___),                      ENCODER_CCW_CW(___, ___)  },
-    [_RAISE] =  { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(___, ___)  },
-    [_ADJUST] = { ENCODER_CCW_CW(___, ___),                      ENCODER_CCW_CW(___, ___) },
+    [_DEFAULT] =   { ENCODER_CCW_CW(KC_WH_U, KC_WH_D), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_LOWER] =  { ENCODER_CCW_CW(___, ___),            ENCODER_CCW_CW(___, ___)  },
+    [_RAISE] =  { ENCODER_CCW_CW(KC_WH_L, KC_WH_R),    ENCODER_CCW_CW(___, ___)  },
+    [_ADJUST] = { ENCODER_CCW_CW(___, ___),            ENCODER_CCW_CW(___, ___) },
+    [_GAMING] = { ENCODER_CCW_CW(KC_F22, KC_F23),      ENCODER_CCW_CW(___, ___) },
 };
 #endif
 #ifdef OLED_ENABLE
@@ -146,7 +183,9 @@ static void render_logo(void) {
 }
 bool oled_task_user(void) {
   // Host Keyboard Layer Status
+  oled_write_ln_P(PSTR(layer_name_map[get_highest_layer(layer_state)]), false);
   return true;
+
   render_logo();
   oled_write_P(PSTR("Layer: "), false);
 
